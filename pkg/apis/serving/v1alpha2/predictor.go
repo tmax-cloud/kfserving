@@ -21,6 +21,7 @@ import (
 	"k8s.io/klog"
 )
 
+// +kubebuilder:object:generate=false
 type Predictor interface {
 	GetResourceRequirements() *v1.ResourceRequirements
 	GetStorageUri() string

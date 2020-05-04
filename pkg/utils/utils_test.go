@@ -17,9 +17,10 @@ limitations under the License.
 package utils
 
 import (
+	"testing"
+
 	"github.com/kubeflow/kfserving/pkg/controller/inferenceservice/resources/credentials/gcs"
 	v1 "k8s.io/api/core/v1"
-	"testing"
 
 	"github.com/google/go-cmp/cmp"
 )
@@ -124,9 +125,9 @@ func TestContainsUtil(t *testing.T) {
 func TestAppendVolumeIfNotExists(t *testing.T) {
 
 	scenarios := map[string]struct {
-		volumes             []v1.Volume
-		volume      		v1.Volume
-		expectedVolumes 	[]v1.Volume
+		volumes         []v1.Volume
+		volume          v1.Volume
+		expectedVolumes []v1.Volume
 	}{
 		"DuplicateVolume": {
 			volumes: []v1.Volume{

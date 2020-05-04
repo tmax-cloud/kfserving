@@ -15,6 +15,7 @@ const (
 )
 
 // Transformer interface is implemented by all Transformers
+// +kubebuilder:object:generate=false
 type Transformer interface {
 	GetContainerSpec() *v1.Container
 	GetStorageUri() string

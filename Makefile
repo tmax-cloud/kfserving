@@ -91,8 +91,7 @@ undeploy-dev:
 
 # Generate manifests e.g. CRD, RBAC etc.
 manifests:
-	go run vendor/sigs.k8s.io/controller-tools/cmd/controller-gen/main.go $(CRD_OPTIONS) rbac:roleName=kfserving-manager-role webhook paths=./pkg/apis/... output:crd:dir=config/default/crds/base
-	kustomize build config/default/crds -o config/default/crds/base/serving.kubeflow.org_inferenceservices.yaml
+	kustomize build config/default/crds -o config/default/crds/generated/serving.kubeflow.org_crds.yaml	
 
 # Run go fmt against code
 fmt:
@@ -114,6 +113,11 @@ generate:
 ifndef GOPATH
 	$(error GOPATH not defined, please define GOPATH. Run "go help gopath" to learn more about GOPATH)
 endif
+	go run vendor/sigs.k8s.io/controller-tools/cmd/controller-gen/main.go $(CRD_OPTIONS) \
+		rbac:roleName=kfserving-manager-role  \
+		object \
+		webhook paths=./pkg/apis/... \
+		output:crd:dir=config/default/crds/base
 	go generate ./pkg/... ./cmd/...
 	hack/update-codegen.sh
 	hack/update-openapigen.sh
