@@ -9,7 +9,6 @@ XGB_IMG ?= xgbserver:latest
 PYTORCH_IMG ?= pytorchserver:latest
 ALIBI_IMG ?= alibi-explainer:latest
 STORAGE_INIT_IMG ?= storage-initializer:latest
-CRD_OPTIONS ?= "crd:trivialVersions=true"
 KFSERVING_ENABLE_SELF_SIGNED_CA ?= false
 
 # CPU/Memory limits for controller-manager
@@ -113,14 +112,17 @@ generate:
 ifndef GOPATH
 	$(error GOPATH not defined, please define GOPATH. Run "go help gopath" to learn more about GOPATH)
 endif
-	go run vendor/sigs.k8s.io/controller-tools/cmd/controller-gen/main.go $(CRD_OPTIONS) \
+	go run vendor/sigs.k8s.io/controller-tools/cmd/controller-gen/main.go \
+		paths=./pkg/apis/serving/v1alpha3/... \
+		crd:trivialVersions=true \
 		rbac:roleName=kfserving-manager-role  \
 		object \
-		webhook paths=./pkg/apis/... \
+		webhook \
 		output:crd:dir=config/default/crds/base
+
 	go generate ./pkg/... ./cmd/...
 	hack/update-codegen.sh
-	# hack/update-openapigen.sh
+	hack/update-openapigen.sh
 
 # Build the docker image
 docker-build: test
