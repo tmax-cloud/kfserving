@@ -113,7 +113,7 @@ ifndef GOPATH
 	$(error GOPATH not defined, please define GOPATH. Run "go help gopath" to learn more about GOPATH)
 endif
 	go run vendor/sigs.k8s.io/controller-tools/cmd/controller-gen/main.go \
-		paths=./pkg/apis/serving/v1alpha3/... \
+		paths=./pkg/apis/serving/v1beta1/... \
 		crd:trivialVersions=true \
 		rbac:roleName=kfserving-manager-role  \
 		object \
