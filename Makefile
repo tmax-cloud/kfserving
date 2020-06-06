@@ -120,7 +120,7 @@ endif
 		output:crd:dir=config/default/crds/base
 	go generate ./pkg/... ./cmd/...
 	hack/update-codegen.sh
-	hack/update-openapigen.sh
+	# hack/update-openapigen.sh
 
 # Build the docker image
 docker-build: test

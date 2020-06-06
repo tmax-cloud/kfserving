@@ -9,8 +9,7 @@
 # markers ("---").
 resources:
 - base/serving.kubeflow.org_inferenceservices.yaml
-- base/serving.kubeflow.org_services.yaml
-- base/serving.kubeflow.org_routers.yaml
+- base/serving.kubeflow.org_inferencerouters.yaml
 
 patchesJson6902:
   # crd codegen in controller tool generates the ref type when there is a type def https://github.com/kubernetes-sigs/controller-tools/issues/324
@@ -25,13 +24,7 @@ patchesJson6902:
     group: apiextensions.k8s.io
     version: v1beta1
     kind: CustomResourceDefinition
-    name: services.serving.kubeflow.org
-  path: patches/crd_status_condition_patch.yaml
-- target:
-    group: apiextensions.k8s.io
-    version: v1beta1
-    kind: CustomResourceDefinition
-    name: routers.serving.kubeflow.org
+    name: inferencerouters.serving.kubeflow.org
   path: patches/crd_status_condition_patch.yaml
   # crd codegen in controller tool gives error on URL struct of the Addressable type for which it does not have the json tags
   # https://github.com/kubernetes-sigs/controller-tools/issues/391
@@ -46,11 +39,5 @@ patchesJson6902:
     group: apiextensions.k8s.io
     version: v1beta1
     kind: CustomResourceDefinition
-    name: services.serving.kubeflow.org
-  path: patches/crd_status_address_patch.yaml
-- target:
-    group: apiextensions.k8s.io
-    version: v1beta1
-    kind: CustomResourceDefinition
-    name: routers.serving.kubeflow.org
+    name: inferencerouters.serving.kubeflow.org
   path: patches/crd_status_address_patch.yaml
